@@ -3,265 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crown Clash Casino - Join the Clash, Win Big!</title>
+  <title>Crown Clash Casino</title>
   <style>
-    :root {
-      --gold: #FFD700;
-      --gold-dark: #DAA520;
-      --purple: #8A2BE2;
-      --purple-dark: #4B0082;
-      --bg-dark: #0A0A0F;
-      --card-gold: rgba(255, 215, 0, 0.1);
-      --glow-gold: 0 0 20px rgba(255, 215, 0, 0.6);
-      --glow-purple: 0 0 20px rgba(138, 43, 226, 0.6);
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Arial Black', Arial, sans-serif;
-      background: linear-gradient(135deg, #0A0A0F 0%, #1A0A2E 50%, #2A0A1A 100%);
-      color: #FFF;
+      background: #0d0d1a;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #fff;
       overflow-x: hidden;
-      position: relative;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 20% 80%, rgba(255,215,0,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(138,43,226,0.1) 0%, transparent 50%);
-      z-index: -1;
-    }
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-    
-    /* Header */
-    header {
-      background: linear-gradient(90deg, rgba(10,10,15,0.95), rgba(26,10,46,0.95));
-      backdrop-filter: blur(20px);
-      padding: 15px 0;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: var(--glow-gold);
-    }
-    .header-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 20px;
+    .header {
+      background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4a 100%);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(255,215,0,0.3);
     }
     .logo {
-      font-size: 2.5em; font-weight: 900;
-      background: linear-gradient(45deg, var(--gold), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-shadow: var(--glow-gold);
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .nav-buttons {
-      display: flex; gap: 15px; flex-wrap: wrap;
+    .header-buttons {
+      display: flex;
+      gap: 15px;
     }
     .btn {
-      padding: 12px 30px; border-radius: 50px; border: none;
-      font-weight: bold; cursor: pointer; transition: all 0.3s;
-      text-transform: uppercase; letter-spacing: 1px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
     }
-    .btn-gold {
-      background: linear-gradient(45deg, var(--gold), var(--gold-dark));
-      color: #000; box-shadow: var(--glow-gold);
-    }
-    .btn-gold:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--gold); }
-    .btn-purple {
-      background: linear-gradient(45deg, var(--purple), var(--purple-dark));
-      color: #FFF; box-shadow: var(--glow-purple);
-    }
-    .btn-purple:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--purple); }
+    .btn-gold { background: linear-gradient(45deg, #ffd700, #ffed4e); color: #333; }
+    .btn-purple { background: linear-gradient(45deg, #8b00ff, #a100ff); color: white; }
     
-    /* Hero */
     .hero {
-      text-align: center; padding: 80px 0 60px;
-      background: radial-gradient(ellipse at center, rgba(255,215,0,0.1) 0%, transparent 70%);
+      height: 70vh;
+      background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4a 50%, #4a1e5e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
     }
-    .hero h1 {
-      font-size: clamp(3em, 8vw, 6em); margin-bottom: 20px;
-      background: linear-gradient(45deg, var(--gold) 0%, var(--purple) 50%, var(--gold) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-shadow: var(--glow-gold);
-      animation: glow 2s ease-in-out infinite alternate;
+    .hero-content h1 {
+      font-size: 4.5em;
+      background: linear-gradient(45deg, #ffd700 0%, #ffed4e 50%, #fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(255,215,0,0.8);
     }
-    @keyframes glow {
-      from { filter: drop-shadow(var(--glow-gold)); }
-      to { filter: drop-shadow(0 0 30px var(--purple)); }
-    }
-    .hero-tag { 
-      font-size: 1.3em; color: var(--gold); margin-bottom: 30px;
-      text-transform: uppercase; letter-spacing: 3px;
-    }
-    .jackpot-badge {
-      display: inline-block; background: linear-gradient(45deg, #FF4500, var(--gold));
-      color: #000; padding: 15px 30px; border-radius: 50px;
-      font-size: 1.5em; font-weight: bold; margin: 20px 0;
-      box-shadow: var(--glow-gold); animation: pulse 1.5s infinite;
+    .hero-content .jackpot {
+      background: linear-gradient(45deg, #ff6b35, #ffd700);
+      color: #000;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.4em;
+      font-weight: bold;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(255,107,53,0.4);
+      animation: pulse 2s infinite;
     }
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
     
-    /* Games Grid */
-    .games {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px; padding: 60px 0;
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    .game-card {
-      background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.5));
-      border: 2px solid rgba(255,215,0,0.3); border-radius: 20px;
-      padding: 30px; text-align: center; cursor: pointer;
-      transition: all 0.4s; position: relative; overflow: hidden;
-    }
-    .game-card::before {
-      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
-      transform: rotate(45deg); transition: 0.6s;
-    }
-    .game-card:hover {
-      transform: translateY(-15px) scale(1.02); border-color: var(--gold);
-      box-shadow: var(--glow-gold), var(--glow-purple); 
-    }
-    .game-card:hover::before { animation: shine 1s infinite; }
-    @keyframes shine {
-      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-    }
-    .game-icon { font-size: 4em; margin-bottom: 15px; }
-    .game-title { font-size: 1.6em; margin-bottom: 10px; color: var(--gold); }
-    .game-jackpot { 
-      background: linear-gradient(45deg, var(--gold), #FF4500);
-      color: #000; padding: 8px 20px; border-radius: 25px; font-weight: bold;
-      display: inline-block; margin-top: 10px;
-    }
-    
-    /* Footer */
-    footer {
-      background: linear-gradient(180deg, rgba(10,10,15,0.95), transparent);
-      padding: 40px 0; text-align: center; border-top: 1px solid rgba(255,215,0,0.3);
-    }
-    .payments { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-    .payment { width: 40px; height: 25px; background: #FFF; border-radius: 5px; }
-    
-    /* Mobile mockup */
-    .mobile-mockup {
-      display: grid; grid-template-columns: 1fr 350px 1fr; align-items: center;
-      margin: 60px 0; gap: 40px;
-    }
-    .mockup-frame {
-      background: linear-gradient(145deg, #333, #111); border-radius: 40px;
-      padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    .game-item {
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.5));
+      border: 2px solid rgba(255,215,0,0.3);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
       position: relative;
-    }
-    .mockup-screen {
-      background: linear-gradient(135deg, var(--purple-dark), var(--bg-dark));
-      border-radius: 25px; height: 600px; padding: 30px;
       overflow: hidden;
     }
-    @media (max-width: 900px) {
-      .mobile-mockup { grid-template-columns: 1fr; text-align: center; }
-      .games { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .game-item:hover {
+      border-color: #ffd700;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255,215,0,0.4);
+    }
+    .game-item .amount {
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .mobile-mockup {
+      background: linear-gradient(145deg, #333 0%, #111 100%);
+      border-radius: 30px;
+      padding: 25px;
+      height: 650px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .mobile-mockup::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 25px;
+      background: #111;
+      border-radius: 20px;
+    }
+    .mobile-screen {
+      background: linear-gradient(135deg, #2d1b4a, #4a1e5e);
+      border-radius: 20px;
+      flex: 1;
+      width: 100%;
+      padding: 30px 20px;
+      overflow: hidden;
+    }
+    
+    .footer {
+      background: linear-gradient(135deg, #1a0d2e, #2d1b4a);
+      padding: 30px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .payments {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .payment-logo {
+      width: 45px;
+      height: 30px;
+      background: white;
+      border-radius: 5px;
+    }
+    
+    @media (max-width: 1200px) {
+      .layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="header-inner">
-        <div class="logo">👑 Crown Clash Casino</div>
-        <div class="nav-buttons">
-          <button class="btn btn-purple">Login</button>
-          <button class="btn btn-gold">Play Now</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <div class="hero-tag">Join the Clash, Win Big!</div>
-      <h1>Crown Clash Casino</h1>
-      <div class="jackpot-badge">Mega Jackpot: $1,453,331</div>
-    </section>
-
-    <section class="games">
-      <div class="game-card">
-        <div class="game-icon">🎰</div>
-        <div class="game-title">Hot Slots</div>
-        <div class="game-jackpot">$1M+</div>
-      </div>
-      <div class="game-card">
-        <div class="game-icon">💎</div>
-        <div class="game-title">Lucky Riches</div>
-        <div class="game-jackpot">$500K</div>
-      </div>
-      <div class="game-card">
-        <div class="game-icon">🍒</div>
-        <div class="game-title">Cherry Riches</div>
-        <div class="game-jackpot">$250K</div>
-      </div>
-      <div class="game-card">
-        <div class="game-icon">🏛️</div>
-        <div class="game-title">Rome Riches</div>
-        <div class="game-jackpot">$100K</div>
-      </div>
-      <div class="game-card">
-        <div class="game-icon">♠️</div>
-        <div class="game-title">Live Tables</div>
-        <div class="game-jackpot">VIP</div>
-      </div>
-      <div class="game-card">
-        <div class="game-icon">⭐</div>
-        <div class="game-title">All View</div>
-        <div class="game-jackpot">New</div>
-      </div>
-    </section>
-
-    <section class="mobile-mockup">
-      <div>
-        <h2 style="font-size: 2.5em; color: var(--gold);">Mobile Ready</h2>
-        <p>Play on any device – full casino experience in your pocket.</p>
-      </div>
-      <div class="mockup-frame">
-        <div class="mockup-screen">
-          <!-- Mobile preview content -->
-          <div style="text-align: center; color: var(--gold); font-size: 1.2em; margin-top: 100px;">
-            👑 Crown Clash<br>
-            <div style="background: linear-gradient(45deg, var(--gold), var(--purple)); 
-                        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                        font-size: 2em; margin: 20px 0;">Play Now</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h2 style="font-size: 2.5em; color: var(--purple);">Join $1B+ Wins</h2>
-        <p>King & Queen themed slots, live dealers, massive jackpots.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Crown Clash Casino. 18+. Demo/Sweeps only. No real money.</p>
-      <div class="payments">
-        <div class="payment" style="background: linear-gradient(45deg, #1a1f71, #2631a6);"></div>
-        <div class="payment" style="background: linear-gradient(45deg, #0066A1, #1E90FF);"></div>
-        <div class="payment" style="background: linear-gradient(45deg, #FF5F00, #FFA500);"></div>
-        <div class="payment" style="background: #00D4AA;"></div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Simple interactions
-    document.querySelectorAll('.game-card').forEach(card => {
-      card.addEventListener('click', () => {
-        alert('Launching ' + card.querySelector('.game-title').textContent + ' – Connect your game engine here!');
-      });
-    });
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        alert(btn.textContent + ' – Wire to Stripe/login API');
-      });
-    });
-  </script>
-</body>
+  <!-- Header -->
+  <header
