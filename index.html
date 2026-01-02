@@ -1,176 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
   <title>Crown Clash Casino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Basic styles -->
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0d0d1a;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      color: #fff;
-      overflow-x: hidden;
+    :root {
+      --bg: #050814;
+      --bg-alt: #0c1024;
+      --accent: #ffcc33;
+      --accent-soft: #f3b547;
+      --accent-danger: #ff4b81;
+      --accent-success: #41e1a0;
+      --card: #12172f;
+      --text: #f5f5ff;
+      --muted: #8588aa;
     }
-    .header {
-      background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4a 100%);
-      padding: 20px 40px;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b2140 0, #050814 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 0, #ffeaa7 0, #ff9f43 50%, #e84393 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(255, 200, 80, 0.5);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .brand-text span:last-child {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ffcc33, #ff9f43);
+      color: #1b1410;
+      box-shadow: 0 0 18px rgba(255, 190, 64, 0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Layout */
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+      header { flex-direction: column; align-items: flex-start; }
+      .header-right { align-self: stretch; justify-content: space-between; }
+    }
+
+    /* Hero / left column */
+    .panel {
+      background: radial-gradient(circle at top left, #2a325f 0, #12172f 40%, #050814 100%);
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 120% -10%, rgba(255, 207, 72, 0.25), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .headline {
+      font-size: clamp(24px, 2.8vw, 30px);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .headline span {
+      color: var(--accent);
+      text-shadow: 0 0 14px rgba(255, 210, 90, 0.7);
+    }
+
+    .sub {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 360px;
+    }
+
+    .hero-metric {
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-metric strong {
+      display: block;
+      color: var(--accent-success);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .hero-actions small {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Game grid */
+    .game-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .game-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .game-card {
+      position: relative;
+      border-radius: 14px;
+      padding: 10px;
+      background: linear-gradient(145deg, #161a33, #090c1c);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.85);
+      border-color: rgba(255, 210, 90, 0.7);
+    }
+
+    .game-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .game-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .game-tag {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #a5b4fc;
+    }
+
+    .game-tag.jackpot {
+      background: rgba(250, 204, 21, 0.08);
+      color: #facc15;
+    }
+
+    .game-tag.hot {
+      background: rgba(248, 113, 113, 0.09);
+      color: #fb7185;
+    }
+
+    .game-amount {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      font-size: 11px;
+      color: var(--accent-soft);
+    }
+
+    /* Right column: auth + activity */
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #13172b, #060815);
+      border-radius: 16px;
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
+    }
+
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 20px rgba(255,215,0,0.3);
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ffd700, #ffed4e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .header-buttons {
-      display: flex;
-      gap: 15px;
-    }
-    .btn {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-gold { background: linear-gradient(45deg, #ffd700, #ffed4e); color: #333; }
-    .btn-purple { background: linear-gradient(45deg, #8b00ff, #a100ff); color: white; }
-    
-    .hero {
-      height: 70vh;
-      background: linear-gradient(135deg, #1a0d2e 0%, #2d1b4a 50%, #4a1e5e 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-    }
-    .hero-content h1 {
-      font-size: 4.5em;
-      background: linear-gradient(45deg, #ffd700 0%, #ffed4e 50%, #fff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       margin-bottom: 10px;
-      text-shadow: 0 0 30px rgba(255,215,0,0.8);
     }
-    .hero-content .jackpot {
-      background: linear-gradient(45deg, #ff6b35, #ffd700);
-      color: #000;
-      padding: 15px 30px;
-      border-radius: 30px;
-      font-size: 1.4em;
-      font-weight: bold;
-      display: inline-block;
-      box-shadow: 0 10px 30px rgba(255,107,53,0.4);
-      animation: pulse 2s infinite;
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+
+    .card-caption {
+      font-size: 11px;
+      color: var(--muted);
     }
-    
-    .games-grid {
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+    }
+
+    .auth-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      max-width: 1400px;
-      margin: 0 auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
     }
-    .game-item {
-      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(0,0,0,0.5));
-      border: 2px solid rgba(255,215,0,0.3);
-      border-radius: 15px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .game-item:hover {
-      border-color: #ffd700;
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(255,215,0,0.4);
-    }
-    .game-item .amount {
-      background: linear-gradient(45deg, #ffd700, #ffed4e);
-      color: #333;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    
-    .layout {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 40px;
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    .mobile-mockup {
-      background: linear-gradient(145deg, #333 0%, #111 100%);
-      border-radius: 30px;
-      padding: 25px;
-      height: 650px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-    .mobile-mockup::before {
-      content: '';
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 25px;
-      background: #111;
-      border-radius: 20px;
-    }
-    .mobile-screen {
-      background: linear-gradient(135deg, #2d1b4a, #4a1e5e);
-      border-radius: 20px;
-      flex: 1;
+
+    .input {
       width: 100%;
-      padding: 30px 20px;
-      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.8);
+      padding: 7px 9px;
+      font-size: 12px;
+      color: var(--text);
     }
-    
-    .footer {
-      background: linear-gradient(135deg, #1a0d2e, #2d1b4a);
-      padding: 30px;
-      text-align: center;
-      margin-top: 40px;
+
+    .input::placeholder {
+      color: #6b7280;
     }
-    .payments {
+
+    .auth-footer {
       display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--muted);
     }
-    .payment-logo {
-      width: 45px;
-      height: 30px;
-      background: white;
-      border-radius: 5px;
+
+    .link {
+      color: var(--accent-soft);
+      cursor: pointer;
+      font-size: 10px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
-    
-    @media (max-width: 1200px) {
-      .layout { grid-template-columns: 1fr; }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+      font-size: 11px;
+    }
+
+    .table tr + tr td {
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .table td {
+      padding: 5px 0;
+      vertical-align: middle;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      border-radius: 999px;
+      padding: 2px 7px;
+    }
+
+    .badge-hot {
+      background: rgba(248, 113, 113, 0.09);
+      color: #fecaca;
+    }
+
+    .badge-new {
+      background: rgba(56, 189, 248, 0.09);
+      color: #a5f3fc;
+    }
+
+    .badge-vip {
+      background: rgba(244, 114, 182, 0.1);
+      color: #f9a8d4;
+    }
+
+    footer {
+      padding: 0 16px 14px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent-soft);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">CC</div>
+        <div class="brand-text">
+          <span>Crown Clash</span>
+          <span>Skill-based casino playground</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="pill">Demo build · No real money</div>
+        <button class="btn btn-ghost" type="button">Docs</button>
+        <button class="btn btn-primary" type="button">Launch app</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Left: hero & games -->
+      <section class="panel">
+        <div class="hero-top">
+          <div>
+            <div class="tagline">Season 01 · Crown Clash</div>
+            <h1 class="headline">
+              Spin up your own <span>casino lobby</span> in minutes.
+            </h1>
+            <p class="sub">
+              Drop this repo onto GitHub Pages or any static host and plug in your own game engines, wallets, or sweepstakes back end when ready.
+            </p>
+          </div>
+          <div class="hero-metric">
+            Live sandbox bank
+            <strong id="bank-balance">$25,000</strong>
+            <span>Virtual credits in rotation</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="button" onclick="scrollToAuth()">
+            Get started
+          </button>
+          <button class="btn btn-ghost" type="button" onclick="window.location.hash = '#games'">
+            Browse games
+          </button>
+          <small>Config lives in <code>/config</code> or environment hooks.</small>
+        </div>
+
+        <div id="games" class="game-grid">
+          <article class="game-card" data-game="slots">
+            <div class="game-label">Featured</div>
+            <div class="game-title">Royal Reels</div>
+            <div class="game-tag jackpot">
+              💰 Jackpot
+            </div>
+            <div class="game-amount">Max win x5,000</div>
+          </article>
+
+          <article class="game-card" data-game="crash">
+            <div class="game-label">Multiplier</div>
+            <div class="game-title">Meteor Crash</div>
+            <div class="game-tag hot">
+              🔥 Hot 24h
+            </div>
+            <div class="game-amount">Top cashout 74.2x</div>
+          </article>
+
+          <article class="game-card" data-game="mines">
+            <div class="game-label">Grid</div>
+            <div class="game-title">Crown Mines</div>
+            <div class="game-tag">
+              🧠 Skill
+            </div>
+            <div class="game-amount">96.4% RTP (demo)</div>
+          </article>
+
+          <article class="game-card" data-game="blackjack">
+            <div class="game-label">Cards</div>
+            <div class="game-title">Neon Blackjack</div>
+            <div class="game-tag">
+              ♠ Basic strategy
+            </div>
+            <div class="game-amount">Up to 3 hands</div>
+          </article>
+
+          <article class="game-card" data-game="roulette">
+            <div class="game-label">Wheel</div>
+            <div class="game-title">Galaxy Roulette</div>
+            <div class="game-tag">
+              🎯 Single zero
+            </div>
+            <div class="game-amount">Track hot numbers</div>
+          </article>
+
+          <article class="game-card" data-game="plinko">
+            <div class="game-label">Risk ladder</div>
+            <div class="game-title">Crown Plinko</div>
+            <div class="game-tag">
+              ⚙ Custom rows
+            </div>
+            <div class="game-amount">Risk: low · mid · high</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Right: auth + feed -->
+      <section class="stack">
+        <section id="auth" class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Sign in to Crown Clash</div>
+              <div class="card-caption">Use this for local dev only.</div>
+            </div>
+            <span class="chip">Local-only auth</span>
+          </div>
+
+          <div class="auth-grid">
+            <input class="input" type="email" placeholder="Email" id="email" autocomplete="off" />
+            <input class="input" type="password" placeholder="Password" id="password" autocomplete="off" />
+            <button class="btn btn-primary" type="button" onclick="demoLogin()">Sign in</button>
+            <button class="btn btn-ghost" type="button" onclick="demoGuest()">Guest mode</button>
+          </div>
+
+          <div class="auth-footer">
+            <span>Back end wiring is left to you.</span>
+            <span class="link" onclick="alert('Hook this into your real auth API or Web3 wallet.')">
+              View integration notes
+            </span>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Live demo feed</div>
+              <div class="card-caption">Synthetic events to prove the UI loop.</div>
+            </div>
+            <span class="chip">Mock data</span>
+          </div>
+
+          <table class="table" id="feed">
+            <tbody>
+              <tr>
+                <td>Anon‑847</td>
+                <td>Meteor Crash</td>
+                <td>
+                  <span class="badge badge-hot">+142.3x</span>
+                </td>
+                <td>$21.36</td>
+              </tr>
+              <tr>
+                <td>Dev‑test</td>
+                <td>Royal Reels</td>
+                <td>
+                  <span class="badge badge-new">Bonus</span>
+                </td>
+                <td>$8.40</td>
+              </tr>
+              <tr>
+                <td>QA‑bot</td>
+                <td>Crown Mines</td>
+                <td>
+                  <span class="badge badge-vip">Chain 7</span>
+                </td>
+                <td>$3.10</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    Crown Clash Casino is a developer demo. No wagering, prizes, or withdrawals are enabled. Wire this front end into your own compliant back end before launch.
+  </footer>
+
+  <script>
+    // Smooth scroll to auth card
+    function scrollToAuth() {
+      var el = document.getElementById("auth");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Demo-only auth handlers
+    function demoLogin() {
+      const email = document.getElementById("email").value.trim();
+      const msg = email
+        ? "Signed in (demo only) as: " + email + "\
+\
+Wire this into your real auth service or wallet."
+        : "Demo sign-in successful. Attach your actual auth flow here.";
+      alert(msg);
+    }
+
+    function demoGuest() {
+      alert("Guest session started (demo). Attach your guest/sweepstakes session bootstrap here.");
+    }
+
+    // Simple synthetic bank animation
+    (function animateBank() {
+      const node = document.getElementById("bank-balance");
+      if (!node) return;
+      let base = 25000;
+      setInterval(function () {
+        const jitter = (Math.random() - 0.5) * 120;
+        const value = base + jitter;
+        node.textContent = "$" + value.toFixed(0).toLocaleString();
+      }, 2200);
+    })();
+
+    // Click hooks for game cards
+    document.querySelectorAll(".game-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        const id = card.getAttribute("data-game");
+        alert(
+          "Launch handler for: " +
+            id +
+            "\
+\
+Here is where you route into your actual game engine, iframe, or React/SPA route."
+        );
+      });
+    });
+  </script>
+</body>
+</html>
